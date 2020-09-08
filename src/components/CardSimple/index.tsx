@@ -3,31 +3,33 @@ import { Text, Card, CardItem, Body, View } from "native-base";
 import { FormatedManaSimbols } from "../FormatedManaSimbols";
 import { CardGradient } from "../CardGradient";
 import { ScrollView } from "react-native-gesture-handler";
+import { Card as RCard } from "../../store/ducks/cards/types";
 import Image from "react-native-remote-svg";
 import style from "./style";
-import api from "../../services/api";
 
-export const CardSimple: React.FC = () => {
-  const rawManaCost = "{1}{R}";
+interface OwnProps {
+  card: RCard;
+}
+
+export const CardSimple: React.FC<OwnProps> = ({ card }) => {
   return (
     <Card transparent>
-      <CardGradient colorIdentity={["R"]}>
+      <CardGradient colorIdentity={card.color_identity}>
         <CardItem header style={style.cardHeader}>
           <ScrollView
             horizontal={true}
             contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
             persistentScrollbar={true}
           >
-            <Text style={{ marginRight: 10 }}>Abrade</Text>
-            <FormatedManaSimbols manaCost={rawManaCost} />
+            <Text style={{ ...style.text, marginRight: 10 }}>{card.name}</Text>
+            <FormatedManaSimbols manaCost={card.mana_cost} />
           </ScrollView>
         </CardItem>
         <CardItem style={{ backgroundColor: "transparent", paddingTop: 0 }}>
           <Body style={{ alignItems: "center" }}>
             <Image
               source={{
-                uri:
-                  "http://192.168.2.101:3000/images/cards/24da9431-7e52-44f5-bc18-2f2d8a4ca81e.jpg",
+                uri: card.images[0].image_uri,
               }}
               style={style.cardImage}
             />
@@ -40,8 +42,10 @@ export const CardSimple: React.FC = () => {
                 }}
               >
                 <ScrollView persistentScrollbar={true}>
-                  <Text>Common</Text>
-                  <Text>Sorcery</Text>
+                  <Text style={{ ...style.text, ...style.rarityText, ...style[card.rarity] }}>
+                    {card.rarity}
+                  </Text>
+                  <Text style={style.text}>{card.type_line}</Text>
                 </ScrollView>
               </View>
               <View style={style.verticalDivider} />
@@ -56,30 +60,9 @@ export const CardSimple: React.FC = () => {
                   persistentScrollbar={true}
                   contentContainerStyle={{ flexDirection: "row", flexWrap: "wrap" }}
                 >
-                  <Image
-                    source={{ uri: "http://192.168.2.101:3000/images/sets/hou.svg" }}
-                    style={style.setIcon}
-                  />
-                  <Image
-                    source={{ uri: "http://192.168.2.101:3000/images/sets/2xm.svg" }}
-                    style={style.setIcon}
-                  />
-                  <Image
-                    source={{ uri: "http://192.168.2.101:3000/images/sets/m20.svg" }}
-                    style={style.setIcon}
-                  />
-                  <Image
-                    source={{ uri: "http://192.168.2.101:3000/images/sets/m19.svg" }}
-                    style={style.setIcon}
-                  />
-                  <Image
-                    source={{ uri: "http://192.168.2.101:3000/images/sets/mm3.svg" }}
-                    style={style.setIcon}
-                  />
-                  <Image
-                    source={{ uri: "http://192.168.2.101:3000/images/sets/roe.svg" }}
-                    style={style.setIcon}
-                  />
+                  {card.sets.map((set) => (
+                    <Image key={set.id} source={{ uri: set.set_icon }} style={style.setIcon} />
+                  ))}
                 </ScrollView>
               </View>
             </View>

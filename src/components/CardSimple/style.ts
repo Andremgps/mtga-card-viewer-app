@@ -35,6 +35,30 @@ const style = StyleSheet.create({
   text: {
     fontFamily: "OpenSans_400Regular",
   },
+  rarityText: {
+    textTransform: "capitalize",
+  },
+  common: {
+    color: "#252120",
+  },
+  uncommon: {
+    color: "#c8e4e7",
+    textShadowColor: "black",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 5,
+  },
+  rare: {
+    color: "#dfcd9d",
+    textShadowColor: "black",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 5,
+  },
+  mythic: {
+    color: "#cf912c",
+    textShadowColor: "black",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 5,
+  },
   manaSimbols: {
     width: 200,
     height: 200,
