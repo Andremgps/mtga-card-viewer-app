@@ -13,6 +13,7 @@ export interface Card {
   color_identity: string[];
   mana_cost: string;
   images: {
+    id: number;
     image_uri: string;
   }[];
   rarity: string;

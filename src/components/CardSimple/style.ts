@@ -21,11 +21,6 @@ const style = StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 12,
   },
-  setIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 10,
-  },
   verticalDivider: {
     width: 2,
     height: "80%",

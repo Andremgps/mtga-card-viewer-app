@@ -1,4 +1,4 @@
-import { all, takeLatest, takeEvery } from "redux-saga/effects";
+import { all, takeLatest } from "redux-saga/effects";
 import { CardsTypes } from "./cards/types";
 import { loadListSaga, loadMoreListSaga } from "./cards/sagas";
 

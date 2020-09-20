@@ -1,17 +1,19 @@
 import React from "react";
+import { Image } from "react-native";
 import { Text, Card, CardItem, Body, View } from "native-base";
 import { FormatedManaSimbols } from "../FormatedManaSimbols";
 import { CardGradient } from "../CardGradient";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Card as RCard } from "../../store/ducks/cards/types";
-import Image from "react-native-remote-svg";
+import SvgUri from "expo-svg-uri";
 import style from "./style";
 
 interface OwnProps {
   card: RCard;
+  cardImageClick(imageUri: string): void;
 }
 
-export const CardSimple: React.FC<OwnProps> = ({ card }) => {
+export const CardSimple: React.FC<OwnProps> = ({ card, cardImageClick }) => {
   return (
     <Card transparent>
       <CardGradient colorIdentity={card.color_identity}>
@@ -27,12 +29,17 @@ export const CardSimple: React.FC<OwnProps> = ({ card }) => {
         </CardItem>
         <CardItem style={{ backgroundColor: "transparent", paddingTop: 0 }}>
           <Body style={{ alignItems: "center" }}>
-            <Image
-              source={{
-                uri: card.images[0].image_uri,
-              }}
-              style={style.cardImage}
-            />
+            <TouchableOpacity
+              style={{ width: 200, height: 200 }}
+              onPress={() => cardImageClick(card.images[0].image_uri)}
+            >
+              <Image
+                source={{
+                  uri: card.images[0].image_uri,
+                }}
+                style={style.cardImage}
+              />
+            </TouchableOpacity>
             <View style={{ flexDirection: "row" }}>
               <View
                 style={{
@@ -61,7 +68,13 @@ export const CardSimple: React.FC<OwnProps> = ({ card }) => {
                   contentContainerStyle={{ flexDirection: "row", flexWrap: "wrap" }}
                 >
                   {card.sets.map((set) => (
-                    <Image key={set.id} source={{ uri: set.set_icon }} style={style.setIcon} />
+                    <SvgUri
+                      key={set.id}
+                      source={{ uri: set.set_icon }}
+                      height="30"
+                      width="30"
+                      style={{ marginRight: 10 }}
+                    />
                   ))}
                 </ScrollView>
               </View>
