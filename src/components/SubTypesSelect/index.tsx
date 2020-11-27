@@ -37,7 +37,7 @@ export const SubTypesSelect: React.FC<Props> = ({ initialValue, changeValue }) =
   return (
     <>
       {subTypesLoading ? (
-        <Spinner color="#3F51B5" />
+        <Spinner color="#cf912c" />
       ) : (
         <Select2
           isSelectSingle={true}
@@ -47,7 +47,7 @@ export const SubTypesSelect: React.FC<Props> = ({ initialValue, changeValue }) =
           style={{ flex: 1 }}
           title="Choose sub type"
           popupTitle="Search for a sub type or choose from the list"
-          colorTheme="#3F51B5"
+          colorTheme="#cf912c"
           cancelButtonText="Cancel"
           selectButtonText="Choose"
           searchPlaceHolderText="Search here..."

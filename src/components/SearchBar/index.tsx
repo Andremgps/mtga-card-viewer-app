@@ -37,7 +37,7 @@ const SearchBar: React.FC<Props> = (props) => {
   }
 
   return (
-    <Header searchBar>
+    <Header searchBar style={{ backgroundColor: "#cf912c" }} androidStatusBarColor="#cf912c">
       <Item>
         <Icon name="search" />
         <Input

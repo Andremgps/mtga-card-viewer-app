@@ -29,7 +29,7 @@ export const RaritysSelect: React.FC<Props> = ({ initialValue, changeValue }) =>
       style={{ flex: 1 }}
       title="Choose rarity"
       popupTitle="Search for a rarity type or choose from the list"
-      colorTheme="#3F51B5"
+      colorTheme="#cf912c"
       cancelButtonText="Cancel"
       selectButtonText="Choose"
       searchPlaceHolderText="Search here..."

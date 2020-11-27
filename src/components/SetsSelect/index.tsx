@@ -37,7 +37,7 @@ export const SetsSelect: React.FC<Props> = ({ initialValue, changeValue }) => {
   return (
     <>
       {setsLoading ? (
-        <Spinner color="#3F51B5" />
+        <Spinner color="#cf912c" />
       ) : (
         <Select2
           data={setsItems}
@@ -46,7 +46,7 @@ export const SetsSelect: React.FC<Props> = ({ initialValue, changeValue }) => {
           style={{ flex: 1 }}
           title="Choose sets"
           popupTitle="Search for a set or choose from the list"
-          colorTheme="#3F51B5"
+          colorTheme="#cf912c"
           cancelButtonText="Cancel"
           selectButtonText="Choose"
           searchPlaceHolderText="Search here..."

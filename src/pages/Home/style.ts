@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
   buttons: {
-    backgroundColor: "#3F51B5",
+    backgroundColor: "#cf912c",
   },
   subIcon: { fontSize: 20 },
 });

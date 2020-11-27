@@ -32,19 +32,23 @@ import { SubTypesSelect } from "../../components/SubTypesSelect";
 import { SuperTypesSelect } from "../../components/SuperTypesSelect";
 import { RaritysSelect } from "../../components/RaritysSelect";
 import style from "./style";
+import { AdMobInterstitial } from "expo-ads-admob";
+import { INTERSETIAL_AD } from "react-native-dotenv";
 
 interface StateProps {
   filters: Filter;
+  searchCount: number;
 }
 
 interface DispatchProps {
   setFilter(filters: Filter): void;
+  setSearchCount(count: number): void;
 }
 
 type Props = StateProps & DispatchProps;
 
 const FiltersForm: React.FC<Props> = (props) => {
-  const { setFilter } = props;
+  const { setFilter, setSearchCount, searchCount } = props;
   const navigation = useNavigation();
 
   const [name, setName] = useState(props.filters.name);
@@ -74,7 +78,20 @@ const FiltersForm: React.FC<Props> = (props) => {
     props.filters.superType ? [props.filters.superType] : []
   );
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    setSearchCount(searchCount + 1);
+    if (searchCount + 1 === 2) {
+      await AdMobInterstitial.setAdUnitID(INTERSETIAL_AD);
+      try {
+        await AdMobInterstitial.requestAdAsync();
+        await AdMobInterstitial.showAdAsync();
+        AdMobInterstitial.addEventListener("interstitialDidClose", () => {
+          setSearchCount(0);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
     const colorsArray = getColors();
     const colors = colorsArray.join(",");
     const filterSets = sets.join(",");
@@ -128,7 +145,7 @@ const FiltersForm: React.FC<Props> = (props) => {
 
   return (
     <Container>
-      <Header>
+      <Header style={{ backgroundColor: "#cf912c" }} androidStatusBarColor="#cf912c">
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" />
@@ -139,7 +156,7 @@ const FiltersForm: React.FC<Props> = (props) => {
         </Body>
         <Right>
           <Button onPress={handleSubmit} style={{ backgroundColor: "#FFF" }}>
-            <Text style={{ color: "#3F51B5" }}>SEARCH!</Text>
+            <Text style={{ color: "#cf912c" }}>SEARCH!</Text>
           </Button>
         </Right>
       </Header>
@@ -171,7 +188,7 @@ const FiltersForm: React.FC<Props> = (props) => {
             onPress={() => setMatchAllColors(!matchAllColors)}
           >
             <CheckBox
-              color="#3F51B5"
+              color="#cf912c"
               checked={matchAllColors}
               onPress={() => setMatchAllColors(!matchAllColors)}
             />
@@ -205,6 +222,8 @@ const FiltersForm: React.FC<Props> = (props) => {
                 onPress={() =>
                   setCmcCondition(cmcCondition !== "greaterThan" ? "greaterThan" : "equal")
                 }
+                color="#cf912c"
+                selectedColor="#cf912c"
               />
             </Item>
             <Item
@@ -215,6 +234,8 @@ const FiltersForm: React.FC<Props> = (props) => {
               <Radio
                 selected={cmcCondition === "lessThan"}
                 onPress={() => setCmcCondition(cmcCondition !== "lessThan" ? "lessThan" : "equal")}
+                color="#cf912c"
+                selectedColor="#cf912c"
               />
             </Item>
           </View>
@@ -223,7 +244,7 @@ const FiltersForm: React.FC<Props> = (props) => {
             <RaritysSelect changeValue={setRaritys} initialValue={raritys} />
           </Item>
           <Item style={style.clearItem}>
-            <Label>Set: </Label>
+            <Label>Sets: </Label>
             <SetsSelect changeValue={setSets} initialValue={sets} />
           </Item>
           <Item style={style.clearItem}>
@@ -238,7 +259,11 @@ const FiltersForm: React.FC<Props> = (props) => {
             <Label>Super Type: </Label>
             <SuperTypesSelect changeValue={setSuperTypes} initialValue={superTypes} />
           </Item>
-          <Button block style={{ marginTop: 20 }} onPress={handleSubmit}>
+          <Button
+            block
+            style={{ marginTop: 20, backgroundColor: "#cf912c" }}
+            onPress={handleSubmit}
+          >
             <Text>Search!</Text>
           </Button>
         </Form>
@@ -249,6 +274,7 @@ const FiltersForm: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: ApplicationState) => ({
   filters: state.filters.data,
+  searchCount: state.filters.searchCount,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(FilterActions, dispatch);

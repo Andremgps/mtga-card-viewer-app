@@ -25,7 +25,7 @@ export const CheckBoxManaSimbol: React.FC<Props> = ({ color, changeValue, initia
           source={ManaSimbols[color]}
           style={{
             ...style.manaSize,
-            borderColor: "#3F51B5",
+            borderColor: "#cf912c",
             borderWidth: 5,
             borderRadius: 30,
           }}

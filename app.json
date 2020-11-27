@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mtga-card-viewer-app",
+    "name": "MTGA Card Viewer",
     "slug": "mtga-card-viewer-app",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -19,11 +19,12 @@
     "ios": {
       "supportsTablet": true
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "android": {
-      "package": "mtga.card.viewer"
+      "package": "mtga.card.viewer",
+      "enableDangerousExperimentalLeanBuilds": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-5464447246309753~4292933841"
+      }
     }
   }
 }

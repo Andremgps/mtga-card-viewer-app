@@ -1,6 +1,7 @@
 export enum FilterTypes {
   SET_FILTER = "@filters/SET_FILTER",
   CLEAR_FILTER = "@filters/CLEAR_FILTER",
+  SET_SEARCH_COUNT = "@filters/SET_SEARCH_COUNT",
 }
 
 export interface Filter {
@@ -20,4 +21,5 @@ export interface Filter {
 
 export interface FilterState {
   readonly data: Filter;
+  readonly searchCount: number;
 }
